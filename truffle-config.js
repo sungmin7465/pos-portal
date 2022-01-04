@@ -1,5 +1,5 @@
-require('babel-register')
-require('babel-polyfill')
+require('babel-register');
+require('babel-polyfill');
 
 /**
  * Use this file to configure your truffle project. It's seeded with some
@@ -21,128 +21,131 @@ require('babel-polyfill')
  *
  */
 
-const HDWalletProvider = require('@truffle/hdwallet-provider')
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
-const MNEMONIC = process.env.MNEMONIC || 'clock radar mass judge dismiss just intact mind resemble fringe diary casino'
-const API_KEY = process.env.API_KEY
-const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY
+const MNEMONIC =
+    process.env.MNEMONIC ||
+    'clock radar mass judge dismiss just intact mind resemble fringe diary casino';
+const API_KEY = process.env.API_KEY;
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 
 module.exports = {
-  /**
-   * Networks define how you connect to your ethereum client and let you set the
-   * defaults web3 uses to send transactions. If you don't specify one truffle
-   * will spin up a development blockchain for you on port 9545 when you
-   * run `develop` or `test`. You can ask a truffle command to use a specific
-   * network from the command line, e.g
-   *
-   * $ truffle test --network <network-name>
-   */
+    /**
+     * Networks define how you connect to your ethereum client and let you set the
+     * defaults web3 uses to send transactions. If you don't specify one truffle
+     * will spin up a development blockchain for you on port 9545 when you
+     * run `develop` or `test`. You can ask a truffle command to use a specific
+     * network from the command line, e.g
+     *
+     * $ truffle test --network <network-name>
+     */
 
-  networks: {
-    development: {
-      host: 'localhost',
-      port: 9545,
-      network_id: '*', // match any network
-      skipDryRun: true,
-      gas: 7000000
-    },
-    root: {
-      host: 'localhost',
-      port: 9545,
-      network_id: '*', // match any network
-      skipDryRun: true,
-      gas: 7000000,
-      gasPrice: '0'
-    },
-    child: {
-      host: 'localhost',
-      port: 8545,
-      network_id: '*', // match any network
-      skipDryRun: true,
-      gas: 7000000,
-      gasPrice: '0'
-    },
-    mumbaiRoot: {
-      provider: () =>
-        new HDWalletProvider(
-          MNEMONIC,
-          `https://goerli.infura.io/v3/${API_KEY}`
-        ),
-      network_id: 5,
-      gas: 7000000,
-      gasPrice: 10000000000, // 10 gwei
-      skipDryRun: true
-    },
-    mumbaiChild: {
-      provider: () =>
-        new HDWalletProvider(
-          MNEMONIC,
-          'https://rpc-mumbai.matic.today'
-        ),
-      network_id: 80001,
-      gas: 7000000,
-      gasPrice: 10000000000, // 10 gwei
-      skipDryRun: true
-    },
-    mainnetRoot: {
-      provider: () =>
-        new HDWalletProvider(
-          MNEMONIC,
-          `https://mainnet.infura.io/v3/${API_KEY}`
-        ),
-      network_id: 1,
-      gas: 7000000,
-      gasPrice: 10000000000, // 10 gwei
-      skipDryRun: true
-    },
-    mainnetChild: {
-      provider: () =>
-        new HDWalletProvider(
-          MNEMONIC,
-          'https://rpc-mainnet.matic.network'
-        ),
-      network_id: 137,
-      gas: 7000000,
-      gasPrice: 10000000000, // 10 gwei
-      skipDryRun: true
-    }
-  },
-
-  // Set default mocha options here, use special reporters etc.
-  mocha: {
-    reporter: 'eth-gas-reporter',
-    reporterOptions: {
-      currency: 'USD',
-      gasPrice: 21,
-      outputFile: '/dev/null',
-      showTimeSpent: true
-    }
-  },
-
-  // Configure your compilers
-  compilers: {
-    solc: {
-      version: '0.6.6', // Fetch exact version from solc-bin (default: truffle's version)
-      docker: true, // Use "0.5.1" you've installed locally with docker (default: false)
-      parser: 'solcjs',
-      settings: { // See the solidity docs for advice about optimization and evmVersion
-        optimizer: {
-          enabled: true,
-          runs: 200
+    networks: {
+        development: {
+            host: 'localhost',
+            port: 9545,
+            network_id: '*', // match any network
+            skipDryRun: true,
+            gas: 7000000,
         },
-        evmVersion: 'istanbul'
-      }
-    }
-  },
+        root: {
+            host: '3.36.179.206', // AWS sidechain
+            port: 9545,
+            network_id: '*', // match any network
+            skipDryRun: true,
+            gas: 7000000,
+            gasPrice: '0',
+        },
+        child: {
+            host: '3.36.179.206',
+            port: 8545,
+            network_id: '*', // AWS sidechain
+            skipDryRun: true,
+            gas: 7000000,
+            gasPrice: '0',
+        },
+        mumbaiRoot: {
+            provider: () =>
+                new HDWalletProvider(
+                    MNEMONIC,
+                    `https://goerli.infura.io/v3/${API_KEY}`
+                ),
+            network_id: 5,
+            gas: 7000000,
+            gasPrice: 10000000000, // 10 gwei
+            skipDryRun: true,
+        },
+        mumbaiChild: {
+            provider: () =>
+                new HDWalletProvider(
+                    MNEMONIC,
+                    'https://rpc-mumbai.matic.today'
+                ),
+            network_id: 80001,
+            gas: 7000000,
+            gasPrice: 10000000000, // 10 gwei
+            skipDryRun: true,
+        },
+        mainnetRoot: {
+            provider: () =>
+                new HDWalletProvider(
+                    MNEMONIC,
+                    `https://mainnet.infura.io/v3/${API_KEY}`
+                ),
+            network_id: 1,
+            gas: 7000000,
+            gasPrice: 10000000000, // 10 gwei
+            skipDryRun: true,
+        },
+        mainnetChild: {
+            provider: () =>
+                new HDWalletProvider(
+                    MNEMONIC,
+                    'https://rpc-mainnet.matic.network'
+                ),
+            network_id: 137,
+            gas: 7000000,
+            gasPrice: 10000000000, // 10 gwei
+            skipDryRun: true,
+        },
+    },
 
-  verify: {
-    preamble: 'Matic PoS Portal'
-  },
+    // Set default mocha options here, use special reporters etc.
+    mocha: {
+        reporter: 'eth-gas-reporter',
+        reporterOptions: {
+            currency: 'USD',
+            gasPrice: 21,
+            outputFile: '/dev/null',
+            showTimeSpent: true,
+        },
+    },
 
-  api_keys: {
-    etherscan: ETHERSCAN_API_KEY
-  }
-}
+    // Configure your compilers
+    compilers: {
+        solc: {
+            version: '0.6.6', // Fetch exact version from solc-bin (default: truffle's version)
+            docker: true, // Use "0.5.1" you've installed locally with docker (default: false)
+            parser: 'solcjs',
+            settings: {
+                // See the solidity docs for advice about optimization and evmVersion
+                optimizer: {
+                    enabled: true,
+                    runs: 200,
+                },
+                evmVersion: 'istanbul',
+            },
+        },
+    },
+
+    verify: {
+        preamble: 'Matic PoS Portal',
+    },
+
+    api_keys: {
+        etherscan: ETHERSCAN_API_KEY,
+    },
+};
